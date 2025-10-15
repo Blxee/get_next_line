@@ -6,7 +6,7 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:27:28 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/15 15:04:38 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:30:01 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_strnextend(char **s1, const char *s2, unsigned long n)
 
 	if (s1 == NULL || s2 == NULL)
 		return ;
-	if (s1 == NULL)
+	if (*s1 == NULL)
 		s1_len = 0;
 	else
 		s1_len = ft_strlen(*s1);
