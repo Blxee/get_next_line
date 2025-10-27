@@ -6,7 +6,7 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:27:28 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/27 09:00:02 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/27 09:17:14 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ void	*ft_strnextend(char **s1, const char *s2, unsigned long n)
 	if (n < s2_len)
 		s2_len = n;
 	total_len = s1_len + s2_len + 1;
-	*s1 = ft_realloc(*s1, total_len); // TODO: return null when realloc fails
+	*s1 = ft_realloc(*s1, total_len);
+	if (*s1 == NULL)
+		return (NULL);
 	i = 0;
 	while (i < s2_len)
 	{

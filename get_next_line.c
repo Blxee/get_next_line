@@ -6,7 +6,7 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:12:41 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/27 09:13:42 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/27 09:16:38 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = NULL;
 	i = 0;
-	while (buf[fd][i] != '\0' && buf[fd][i] != '\n')
+	while (i < BUFFER_SIZE && buf[fd][i] != '\0' && buf[fd][i] != '\n')
 		i++;
 	if (ft_strnextend(&line, buf[fd], i) == NULL)
 		return (NULL);
