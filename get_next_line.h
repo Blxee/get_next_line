@@ -6,7 +6,7 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:11:20 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/15 15:05:35 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/27 08:59:38 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 char			*get_next_line(int fd);
 void			*ft_realloc(void *mem, unsigned long size);
 unsigned long	ft_strlen(const char *str);
-void			ft_strnextend(char **s1, const char *s2, unsigned long n);
+void			*ft_strnextend(char **s1, const char *s2, unsigned long n);
 
 #endif
