@@ -6,24 +6,28 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:27:28 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/27 09:17:14 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:55:18 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_realloc(void *mem, unsigned long size)
+void	*ft_realloc(void *mem, unsigned long old_size, unsigned long new_size)
 {
 	unsigned char	*new;
 	unsigned int	i;
 
-	new = malloc(size);
+	new = malloc(new_size);
 	if (new == NULL)
+	{
+		if (mem != NULL)
+			free(mem);
 		return (NULL);
+	}
 	if (mem != NULL)
 	{
 		i = 0;
-		while (i < size)
+		while (i < old_size)
 		{
 			new[i] = ((unsigned char *)mem)[i];
 			i++;
@@ -52,15 +56,14 @@ void	*ft_strnextend(char **s1, const char *s2, unsigned long n)
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	if (*s1 == NULL)
-		s1_len = 0;
-	else
+	s1_len = 0;
+	if (*s1 != NULL)
 		s1_len = ft_strlen(*s1);
 	s2_len = ft_strlen(s2);
 	if (n < s2_len)
 		s2_len = n;
 	total_len = s1_len + s2_len + 1;
-	*s1 = ft_realloc(*s1, total_len);
+	*s1 = ft_realloc(*s1, s1_len, total_len);
 	if (*s1 == NULL)
 		return (NULL);
 	i = 0;
