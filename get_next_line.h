@@ -6,7 +6,7 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:11:20 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/29 20:21:39 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/31 08:08:08 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@
 #  define BUFFER_SIZE (32)
 # endif
 
-# ifndef MAX_FDS
-#  define MAX_FDS (128)
-# endif
-
 char			*get_next_line(int fd);
+
+void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_realloc(void *mem, unsigned long old_size,
 					unsigned long new_size);
 unsigned long	ft_strlen(const char *str);
 void			*ft_strnextend(char **s1, const char *s2, unsigned long n);
+void			ft_trunc_start(char *str, size_t len, size_t size);
 
 #endif

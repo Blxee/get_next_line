@@ -6,11 +6,29 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:27:28 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/30 11:55:18 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/31 09:28:46 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	unsigned char	*mem;
+	size_t			i;
+
+	if (s == NULL)
+		return (NULL);
+	mem = (unsigned char *)s;
+	i = 0;
+	while (i < n)
+	{
+		if (mem[i] == (unsigned char)c)
+			return ((void *)mem + i);
+		i++;
+	}
+	return (NULL);
+}
 
 void	*ft_realloc(void *mem, unsigned long old_size, unsigned long new_size)
 {
@@ -74,4 +92,21 @@ void	*ft_strnextend(char **s1, const char *s2, unsigned long n)
 	}
 	(*s1)[s1_len + i] = '\0';
 	return (*s1);
+}
+
+void	ft_trunc_start(char *str, size_t len, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (len + i < size)
+	{
+		str[i] = str[len + i];
+		i++;
+	}
+	while (i < size)
+	{
+		str[i] = '\0';
+		i++;
+	}
 }

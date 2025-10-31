@@ -5,64 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 11:12:41 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/30 12:11:19 by atahiri-         ###   ########.fr       */
+/*   Created: 2025/10/30 12:32:03 by atahiri-          #+#    #+#             */
+/*   Updated: 2025/10/31 12:07:00 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_trunc_start(char buf[MAX_FDS][BUFFER_SIZE], int fd, int i)
-{
-	unsigned long	j;
-
-	if (buf[fd][i] == '\n')
-	{
-		i++;
-		j = 0;
-		while (i < BUFFER_SIZE && buf[fd][i] != '\0')
-			buf[fd][j++] = buf[fd][i++];
-		buf[fd][j++] = '\0';
-	}
-}
-
 char	*get_next_line(int fd)
 {
-	static char		buf[MAX_FDS][BUFFER_SIZE] = {0};
-	long			size;
-	unsigned long	i;
-	char			*line;
+	static char	s_buf[BUFFER_SIZE] = {0};
+	long		size;
+	long		len;
+	char		*line;
+	char		*endl;
 
-	if (fd < 0)
-		return (NULL);
 	line = NULL;
-	i = 0;
-	while (i < BUFFER_SIZE && buf[fd][i] != '\0' && buf[fd][i] != '\n')
-		i++;
-	if (buf[fd][0] != -1)
+	size = BUFFER_SIZE;
+	while (size >= 0)
 	{
-		line = ft_strnextend(&line, buf[fd], i);
-		if (line == NULL)
-			return (NULL);
-	}
-	while (1)
-	{
-		size = read(fd, buf[fd], BUFFER_SIZE);
-		if (size < 0)
-			return (NULL);
-		i = 0;
-		while (i < size && buf[fd][i] != '\n')
-			i++;
-		if (ft_strnextend(&line, buf[fd], i) == NULL || buf[fd][i] == '\n')
+		len = size;
+		endl = (char *)ft_memchr(s_buf, '\n', size);
+		if (endl)
+			len = endl - s_buf + 1;
+		ft_strnextend(&line, s_buf, len);
+		if (endl || size < BUFFER_SIZE)
 			break ;
-		if (size < BUFFER_SIZE)
-		{
-			i = 0;
-			while (i < BUFFER_SIZE)
-				buf[fd][i++] = '\0';
-			buf[fd][0] = -1;
-			break ;
-		}
+		size = read(fd, s_buf, BUFFER_SIZE);
 	}
-	return (ft_trunc_start(buf, fd, i), line);
+	if (len == 0)
+		len = ft_strlen(s_buf);
+	ft_trunc_start(s_buf, len, BUFFER_SIZE);
+	if (ft_strlen(line) == 0)
+		return (NULL);
+	return (line);
 }
