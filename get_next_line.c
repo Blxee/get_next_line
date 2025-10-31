@@ -6,7 +6,7 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:32:03 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/31 12:07:00 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/10/31 19:36:40 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	*get_next_line(int fd)
 		len = ft_strlen(s_buf);
 	ft_trunc_start(s_buf, len, BUFFER_SIZE);
 	if (ft_strlen(line) == 0)
-		return (NULL);
+		return (free(line), NULL);
 	return (line);
 }
