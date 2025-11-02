@@ -29,13 +29,11 @@ char	*get_next_line(int fd)
 		if (endl)
 			len = endl - s_buf + 1;
 		ft_strnextend(&line, s_buf, len);
+		ft_trunc_start(s_buf, len, BUFFER_SIZE);
 		if (endl || size < BUFFER_SIZE)
 			break ;
 		size = read(fd, s_buf, BUFFER_SIZE);
 	}
-	if (len == 0)
-		len = ft_strlen(s_buf);
-	ft_trunc_start(s_buf, len, BUFFER_SIZE);
 	if (ft_strlen(line) == 0)
 		return (free(line), NULL);
 	return (line);
