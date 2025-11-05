@@ -6,31 +6,32 @@
 /*   By: atahiri- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:27:28 by atahiri-          #+#    #+#             */
-/*   Updated: 2025/10/31 09:28:46 by atahiri-         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:01:31 by atahiri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_strchr(char **s, char c, size_t n)
 {
-	unsigned char	*mem;
 	size_t			i;
 
-	if (s == NULL)
+	if (!*s)
+	{
+		*s = ft_realloc(NULL, 0, (size_t)BUFFER_SIZE + 1);
 		return (NULL);
-	mem = (unsigned char *)s;
+	}
 	i = 0;
 	while (i < n)
 	{
-		if (mem[i] == (unsigned char)c)
-			return ((void *)mem + i);
+		if ((*s)[i] == c)
+			return (*s + i);
 		i++;
 	}
 	return (NULL);
 }
 
-void	*ft_realloc(void *mem, unsigned long old_size, unsigned long new_size)
+void	*ft_realloc(void *mem, size_t old_size, size_t new_size)
 {
 	unsigned char	*new;
 	unsigned int	i;
@@ -42,16 +43,17 @@ void	*ft_realloc(void *mem, unsigned long old_size, unsigned long new_size)
 			free(mem);
 		return (NULL);
 	}
-	if (mem != NULL)
+	i = 0;
+	while (i < new_size)
 	{
-		i = 0;
-		while (i < old_size)
-		{
+		if (mem && i < old_size)
 			new[i] = ((unsigned char *)mem)[i];
-			i++;
-		}
-		free(mem);
+		else
+			new[i] = 0;
+		i++;
 	}
+	if (mem)
+		free(mem);
 	return (new);
 }
 
@@ -60,7 +62,7 @@ unsigned long	ft_strlen(const char *str)
 	unsigned long	len;
 
 	len = 0;
-	while (str[len] != '\0')
+	while (str && str[len] != '\0')
 		len++;
 	return (len);
 }
@@ -94,19 +96,27 @@ void	*ft_strnextend(char **s1, const char *s2, unsigned long n)
 	return (*s1);
 }
 
-void	ft_trunc_start(char *str, size_t len, size_t size)
+void	ft_trunc_start(char **str, size_t len, size_t size, char *endl)
 {
 	size_t	i;
 
+	if (!(*str))
+		return ;
+	if (!endl && len < size)
+	{
+		free(*str);
+		*str = NULL;
+		return ;
+	}
 	i = 0;
 	while (len + i < size)
 	{
-		str[i] = str[len + i];
+		(*str)[i] = (*str)[len + i];
 		i++;
 	}
 	while (i < size)
 	{
-		str[i] = '\0';
+		(*str)[i] = '\0';
 		i++;
 	}
 }
